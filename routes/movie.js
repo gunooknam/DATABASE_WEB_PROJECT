@@ -4,12 +4,9 @@ var conn = require('../config/database')();
 // this is Api for movie information
 
 
+router.get('/detail', function(req, res) {
 
-
-
-router.get('/allmovie', function(req, res) {
-
-
+   res.render('movie/moviedetail');
 
 });
 

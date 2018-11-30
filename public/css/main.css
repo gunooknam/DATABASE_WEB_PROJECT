@@ -2178,7 +2178,6 @@ ul.sidebar-gallery{
 .comments .single-comment .comment-img{
     width: 70px;
     height: 70px;
-    border-radius: 50%;
     overflow: hidden;
     position: absolute;
     left: 0;
@@ -2253,7 +2252,7 @@ ul.sidebar-gallery{
     border: none;
     line-height: 42px;
     padding: 0 35px;
-    background-color: black;
+    background-color: #d9534f;
     border-radius: 3px;
     margin-left: auto;
     margin-top: 15px;
