@@ -1,0 +1,76 @@
+<% include ../admininclude/header.ejs %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+<script>
+$("#home").removeClass( "active" );
+$("#movieset").addClass( "active" );
+
+</script>
+<style>
+
+.panel-heading .btn-xs{
+    border:1px solid white;
+    opacity: 0.7;
+    background-color: #343a40;
+    color: white;
+    border-radius:1px;
+  }
+
+.panel-heading .btn-xs:hover{
+  border:1px solid #868e96;
+  opacity: 0.7;
+  background-color: white;
+  color: #868e96;
+  border-radius:1px;
+}
+
+#pagination li:active {
+  background-color:#495057;
+}
+</style>
+
+<section id="main-content">
+  <section class="wrapper">
+    <div class="row mt content-panel" style="margin:15px;padding:15px">
+      <div id="edit" class="tab-pane">
+
+                <h2  style="margin-top: 10px; display:inline-block"><strong> Banner 상영영화 관리</strong></h2>
+                <hr>
+                <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>번호</th>
+                      <th>제목</th>
+                      <th>개봉날짜</th>
+                      <th>상영시간</th>
+                      <th>상영중인 극장</th>
+                    </tr>
+                  </thead>
+
+                <%
+                var start=0;
+                var end=rows.length;
+                 for(var i=start; i<end; i++){
+                      var item = rows[i];
+                %>
+                  <tr>
+                    <td><%= i+1 %></td>
+                    <td><a class="ClickMovie" data-title="<%= item.title %>" data-poster="<%= item.poster %>" data-mid="<%= item.movieid %>" style="cursor:pointer"><%= item.title %><a></td>
+                    <td><%= item.releasedate %></td>
+                    <td><%= item.runtime %></td>
+
+                    <td><%= item.theaters %></td>
+
+                  </tr>
+                <%
+                  }
+                %>
+
+          </table>
+
+                <br>
+      </div>
+    </div>
+    </section>
+</section>
+<% include ../admininclude/footer.ejs %>

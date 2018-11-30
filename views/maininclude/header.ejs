@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>CeNeMaWorld</title>
+    <!--  JQuery define  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+    <!-- core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/css/icomoon.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/img/mini_logo.png">
+    <link rel="stylesheet" href="/css/swiper.min.css"/>
+</head>
+<!--/head-->
+<body class="homepage">
+
+    <header id="header">
+        <nav class="navbar navbar-inverse" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" style="background-color:#ced4da; border-color: white;">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"><img src="/img/logo3.png" alt="logo"></a>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">홈</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">영화 <i class="fa fa-angle-down"></i></a>
+                              <ul class="dropdown-menu">
+                                  <li><a href="blog-item.html">영화 검색</a></li>
+                                  <li><a href="404.html">영화 차트</a></li>
+                              </ul>
+                        </li>
+
+                        <li><a href="/theator">영화관</a></li>
+                        <li><a href="portfolio.html">이벤트</a></li>
+                        <li><a href="portfolio.html">스토어</a></li>
+                        <li><a href="blog.html">고객센터</a></li>
+                        <li><a href="contact-us.html">공지사항</a></li>
+                        <!-- <li> <a href="/login">로그인</a></li> -->
+                        <%
+                        if( typeof user!=="undefined") {
+                        %>
+                        <li class="dropdown"><a href="/" class="dropdown-toggle" data-toggle="dropdown"> <%= user.nickname %> <i class="fa fa-angle-down"></i></a>
+                              <ul class="dropdown-menu">
+                                  <li><a href="/auth/logout">로그아웃</a></li>
+                                  <li><a href="/index">마이페이지</a></li>
+                                  <li><a href="pricing.html">예매내역</a></li>
+                              </ul>
+                        </li>
+                				<% } else { %>
+                  					<li>
+                  						 <a href="/auth/login">로그인</a>
+                  					</li>
+                				<% } %>
+                    </ul>
+                </div>
+            </div>
+            <!--/.container-->
+        </nav>
+        <!--/nav-->
+    </header>
+    <!--/header-->

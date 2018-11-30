@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>좌석 현황</title>
+  </head>
+
+<style>
+ .line{overflow:hidden;}
+ .seat{
+   margin: 2px; float:left;
+   width:30px; height:30px;
+   border-radius:3px;
+ }
+ .enable{ background: gray; }
+ .enable:hover{ background: black; }
+ .disable{ background: red; }
+</style>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//127.0.0.1:8000/socket.io/socket.io.js"></script>
+<script>
+
+var socket = io.connect('http://localhost:8000');
+  socket.on('reserver', function(data){
+    var $target = $('div[data-x= ' + data.x +'][data-y =' + data.y + ']');
+    $target.removeClass('enable');
+    $target.addClass('disable');
+  });
+</script>
+<script>
+  var onClickSeat = function(){
+
+    var x = $(this).attr('data-x');
+    var y = $(this).attr('data-y');
+
+    if( confirm('예약!') ){
+
+      $(this).off('click');
+
+      socket.emit('reserve',
+      {
+        x:x,
+        y:y
+      });
+      socket.emit('save');
+    }else {
+      alert('Cancel!');
+    }
+  };
+
+$.getJSON('http://127.0.0.1:8000/seats?callback=?', {dummy: new Date().getTime() }, function(data){
+  //alert("요청이 안가니?");
+  alert(data);
+  $.each(data, function(indexY, line){
+    var $line = $('<div></div>').addClass('line');
+    $.each(line,function(indexX, seat){
+
+      var $output = $('<div></div>',{
+        'class':'seat',
+        'data-x':indexX,
+        'data-y':indexY
+      }).appendTo($line);
+
+      if(seat==1){
+        $output.addClass('enable').on("click",onClickSeat);
+      } else if(seat==2){
+        $output.addClass('disable');
+      }
+    });
+    $line.appendTo('.seatinfo');
+  });
+});
+</script>
+
+
+<body>
+  <div class="seatinfo" style="margin-left:40%">
+    이건 영화 좌석정보 현황이야
+    <input type="hidden" id="test" value>
+
+  </div>
+</body>
+</html>

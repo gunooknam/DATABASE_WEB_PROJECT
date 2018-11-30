@@ -1,0 +1,356 @@
+<% include ./maininclude/header.ejs %>
+<script src="/js/jquery.slicknav.min.js"></script>
+<script src="/js/swiper.min.js"></script>
+
+<link rel="stylesheet" href="/css/swiper.min.css"/>
+
+<!-- 이건 release movie를 위한 템플릿 -->
+<script id="template-movie" type="text/x-handlebars-template">
+  {{#each .}}
+  <div class="swiper-slide">
+    <div class="recent-work-wrap">
+       <img src={{poster}} alt="App Screen" >
+         <div class="overlay" onclick="location.href='/admin/movie/read?movieid={{movieid}}'">
+           <div class="recent-work-inner">
+             <div> [개봉일] <br> {{releasedate}} </div>
+             <div> [줄거리] <br> {{descriptionlen description}}
+           </div>
+          </div>
+         </div>
+     </div>
+    </div>
+  {{/each}}
+</script>
+
+<!-- 이건 event slider 를 위한 템플릿 -->
+<script id="template-evnet" type="text/x-handlebars-template">
+  {{#each .}}
+  <div class="swiper-slide">
+    <div class="recent-work-wrap">
+       <img src={{event_img}} alt="App Screen" >
+         <div class="overlay" onclick="#">
+           <div class="recent-work-inner">
+             <div> 이벤트 내용 </div>
+             <div> 이벤트 기간 <br> {{descriptionlen description}}
+           </div>
+          </div>
+         </div>
+     </div>
+    </div>
+  {{/each}}
+</script>
+
+
+<!-- 이건 메인 페이지 banner 를 위한 템플릿 -->
+<script id="template-banner" type="text/x-handlebars-template">
+{{#each .}}
+{{#if @first}}
+  <div class="item active" style="background-image:url( {{bannerimg}}  )">
+{{else}}
+  <div class="item" style="background-image: url( {{bannerimg}}  )">
+{{/if}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="carousel-content">
+                    <div class="animation animated-item-1">
+                      <h1 >{{title}} </h1>
+                       {{releasedate}} 개봉
+                      <hr>
+                   </div>
+                    <div class="animation animated-item-2">
+                        {{descriptionlen description}}
+                    </div>
+                    <a class="btn-slide animation animated-item-3" href="#">자세히 보기</a>
+                    <a class="btn-slide white animation animated-item-3" href="#">예매하기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+</script>
+
+
+
+    <section id="main-slider" class="no-margin">
+        <div class="carousel slide">
+            <ol class="carousel-indicators">
+
+                <!-- ajax 에서 비동기로 처리함 -->
+
+            </ol>
+            <div class="carousel-inner">
+
+            <!-- 이 부분은 템플릿으로 넣음 -->
+
+            </div>
+            <!--/.carousel-inner-->
+        </div>
+        <!--/.carousel-->
+        <a class="prev hidden-xs hidden-sm" href="#main-slider" data-slide="prev">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+        <a class="next hidden-xs hidden-sm" href="#main-slider" data-slide="next">
+            <i class="fa fa-chevron-right"></i>
+        </a>
+    </section>
+
+
+<section id="release-slider" style="padding-top: 30px; padding-bottom:30px">
+
+<style>
+  .video {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+  div .tab-pane .fade{
+    style="padding-left:20px
+  }
+</style>
+
+    <div class="out" style="width:100%; text-align: center; margin-top:1rem;margin-bottom:4rem ">
+      <div class="in" style="width:50%; display: inline-block; border: 2px solid #ffa8a8">
+              <div style="border: 2px solid #ffa8a8; margin:1px"><h2 style="margin-bottom:20px; color: #fa5252"> <img src="/img/logo3.png" alt="logo" style="height:20px;margin-bottom:4px;margin-right:4px"> 최  신  개  봉  영  화 </h2></div>
+      </div>
+    </div>
+
+    <section id="screenshots" class="screenshot_section">
+        <div class="screen_wrap">
+            <div class="swiper-container screen_carousel">
+                <div class="swiper-wrapper movie-slider">
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+  <hr style="margin:0px">
+
+
+    <section id="recent-works" style="padding-top: 30px; padding-bottom:30px">
+      <div class="out" style="width:100%; text-align: center; margin-top:1rem;margin-bottom:4rem ">
+        <div class="in" style="width:50%; display: inline-block; border: 2px solid #ffa8a8">
+                <div style="border: 2px solid #ffa8a8; margin:1px"><h2 style="margin-bottom:20px; color: #fa5252"> <img src="/img/logo3.png" alt="logo" style="height:20px;margin-bottom:4px;margin-right:4px"> 이 벤 트 </h2></div>
+        </div>
+      </div>
+
+    <div class="screen_wrap">
+          <div class="swiper-container screen_carousel">
+              <div class="swiper-wrapper event-slider">
+                  <div class="swiper-slide">
+                    <img src="/images/1.jpg" alt="App Screen">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="/images/2.jpg" alt="App Screen">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="/images/3.jpg" alt="App Screen">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="/images/4.jpg" alt="App Screen">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="/images/5.jpg" alt="App Screen">
+                  </div>
+              </div>
+          </div>
+        </div>
+     </section>
+    <hr style="margin:0px">
+
+
+
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1 fadeInDown">
+                    <div class="tab-wrap">
+                        <div class="media">
+                            <div class="parrent pull-left">
+                                <ul class="nav nav-tabs nav-stacked">
+                                  <li class="active"><a href="#tab1" data-toggle="tab" class="analistic-01">예고편 하나 넣자 </a></li>
+                                    <li class=""><a href="#tab2" data-toggle="tab" class="analistic-02">여기에 무엇을 배치하지</a></li>
+                                    <li class=""><a href="#tab3" data-toggle="tab" class="tehnical">내용이 알맞을 까</a></li>
+                                    <li class=""><a href="#tab4" data-toggle="tab" class="tehnical">내용을 채워볼까</a></li>
+                                    <li class=""><a href="#tab5" data-toggle="tab" class="tehnical">무슨 내용을</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="parrent media-body">
+                                <div class="tab-content">
+                                  <div class="tab-pane fade active in text-right" id="tab1">
+                                    <div style="display:inline-block; float:left; padding-left:30px">
+                                      <div> 제목 쓰고</div>
+                                      <div> 개봉일 쓰고 </div>
+                                      <div> 내용 쓰기</div>
+                                    </div>
+
+                                      <div class="video-box" style=" display:inline-block">
+
+                                          <iframe class='video video-icon'src="http://www.youtube.com/embed/pS6wX9HRGGw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:auto;height:250px"></iframe>
+                                            <!-- <img src="https://image.tmdb.org/t/p/original/uc36Ixo81Z42wSx99oA7CsgfhP.jpg" style="width:auto;height:250px" alt="video">
+                                            <a class="video-icon" href="https://www.youtube.com/watch?v=J-9CR9z_5OI" rel="prettyPhoto"><i class="fa fa-play" style="font-size:15px"> 재생</i></a> -->
+                                      </div>
+                                  </div>
+
+                                    <div class="tab-pane fade" id="tab2">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                                <img class="img-responsive" src="img/tab2.png">
+                                            </div>
+                                            <div class="media-body">
+                                                <h2>Adipisicing elit</h2>
+                                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="tab3">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="tab4">
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words</p>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="tab5">
+                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures,</p>
+                                    </div>
+                                </div>
+                                <!--/.tab-content-->
+                            </div>
+                            <!--/.media-body-->
+                        </div>
+                        <!--/.media-->
+                    </div>
+                    <!--/.tab-wrap-->
+                </div>
+                <!--/.col-sm-6-->
+
+            </div>
+            <!--/.row-->
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/#content-->
+
+
+    <section id="partner">
+        <div class="container">
+            <div class="center fadeInDown">
+                <h2>디자인은 어떻게 해야 하는 것인가</h2>
+                <p class="lead">어떻게 뭐를 배치해야 좋을 지 모르겠음 <br> 배치에 대한 고민을 해야겠음 </p>
+            </div>
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/#partner-->
+
+<!--/#bottom-->
+<script>
+jQuery(document).ready(function($)
+{
+
+ function getSlide() {
+        var wW = $(window).width();
+        if (wW < 601) {
+            return 1;
+        }
+        return 3;
+    }
+    var mySwiper = $('.screen_carousel').swiper({
+        mode:'horizontal',
+        loop: true,
+        speed: 1000,
+        autoplay: 10000,
+        effect: 'coverflow',
+        slidesPerView: getSlide(),
+        grabCursor: true,
+        pagination: '.screen-pagination',
+        paginationClickable: true,
+        nextButton: '.arrow-right',
+        prevButton: '.arrow-left',
+        keyboardControl: true,
+        coverflow: {
+            rotate: 10,
+            stretch: 90,
+            depth: 200,
+            modifier: 1,
+            slideShadows : true
+        }
+    });
+
+});
+
+// 헬퍼는 여기다가 등록
+Handlebars.registerHelper("descriptionlen", function(description){
+  if(description.length>100)
+	   return description.substr(0,100)+"....";
+  else
+    return description;
+});
+
+</script>
+
+<script>
+
+
+
+    // 베너영화
+    var source2 = $('#template-banner').html();
+    var template2 = Handlebars.compile(source2);
+
+    // 상영베너
+    var source = $('#template-movie').html();
+  	var template = Handlebars.compile(source);
+
+    $.ajax({
+               type: 'GET',
+               url: '/movie/bannermovie',
+               data: "json",
+               async: false, // 동기 방식으로 불러와야 한다.
+               success: function(data) {
+                    if(data != null) {
+                        //alert(data.length);
+                         // 서버에서 받아와서 데이터 넣음 이건 임시
+
+
+                         var str="";
+                         for(var i=0; i<data.length; i++){
+                           if(!i)
+                            str+='<li data-target="#main-slider" data-slide-to='+i+'class="active"></li>';
+                          else
+                      		  str+='<li data-target="#main-slider" data-slide-to='+i+'></li>';
+                      	}
+
+                         $(".carousel-indicators").html(str);
+                         // 서버에서 받아와서 데이터 넣음 이건 임시
+                         $(".carousel-inner").html(template2(data));
+
+
+                    }
+               }
+      });
+
+
+      $.ajax({
+                 type: 'GET',
+                 url: '/movie/bannerrelease',
+                 data: "json",
+                 async: false, // 동기 방식으로 불러와야 한다.
+                 success: function(data) {
+                      if(data != null) {
+
+                           $(".movie-slider").html(template(data));
+                      }
+                 }
+        });
+
+
+
+</script>
+
+<% include ./maininclude/footer.ejs %>

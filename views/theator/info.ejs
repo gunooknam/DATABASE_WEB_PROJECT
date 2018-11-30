@@ -1,0 +1,151 @@
+<% include ../maininclude/header.ejs %>
+<style>
+.nav-pills>li>a {
+    border-radius: 1px;
+
+}
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:hover,
+.nav-pills>li.active>a:focus {
+    color: #fff;
+    background-color: #868e96;
+}
+</style>
+
+
+<script id="template-panel-nav" type="text/x-handlebars-template">
+{{#each .}}
+  {{#if @first}}
+    <li class="active"><a class="location" href="#tab_{{@key}}" data-toggle="pill" data-addr="{{address}}" data-no={{@key}}>{{location}}</a></li>
+  {{else}}
+    <li><a class="location" href="#tab_{{@key}}" data-toggle="pill" data-addr="{{address}}" data-no={{@key}}>{{location}}</a></li>
+  {{/if}}
+
+{{/each}}
+</script>
+
+<script id="template-panel" type="text/x-handlebars-template">
+{{#each .}}
+    {{#if @first}}
+      <div class="tab-pane active" id="tab_{{@key}}">
+    {{else}}
+      <div class="tab-pane" id="tab_{{@key}}">
+    {{/if}}
+             <h4>[ {{location}}점 ]</h4>
+             <div id="address">주소 : {{address}}</div>
+             <p>연락처: 02-940-5114</p>
+             <div id="map{{@key}}"  style="width:100%;height:250px;"></div>
+             <hr>
+             <div> 여기다가는 영화별 상영 정보를 나열 </div>
+      </div>
+{{/each}}
+</script>
+
+
+<section id="selection-theator" class="no-margin">
+
+  <div class="col-md-12 text-center ">
+
+    <br>
+    <div class="out" style="width:100%; text-align: center; margin-top:1rem;margin-bottom:4rem ">
+      <div class="in" style="width:50%; display: inline-block; border: 2px solid #ffa8a8; width:45%">
+      <div style="border: 2px solid #ffa8a8; margin:1px"><h2 style="margin-bottom:20px; color: #fa5252"><img src="/img/logo3.png" alt="logo" style="height:20px;margin-bottom:4px;margin-right:4px"> 영화관 선택 </h2></div>
+    </div>
+  </div>
+  </div>
+
+
+<div class="container">
+  <ul class=" nav nav-pills nav-stacked col-md-2">
+  </ul>
+
+  <div class="tab-content col-md-9">
+  </div><!-- tab content -->
+
+</div>
+<br>
+
+</section>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c28d628a97834946e0fd24f43822403d&libraries=services"></script>
+<script>
+  var multimap = function(map, address,location){
+    var mapContainer = document.getElementById(map),
+        mapOption = {
+            center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+    // 지도를 생성합니다
+    var map = new daum.maps.Map(mapContainer, mapOption);
+
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new daum.maps.services.Geocoder();
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch(address, function(result, status) {
+        // 정상적으로 검색이 완료됐으면
+        map.relayout()
+         if (status === daum.maps.services.Status.OK) {
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new daum.maps.Marker({
+                map: map,
+                position: coords
+            });
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new daum.maps.InfoWindow({
+                disableAutoPan: true,
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">CINEMA WOLRD '+location+'</div>'
+            });
+            infowindow.open(map, marker);
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+        }
+    });
+  }
+</script>
+<script>
+
+var nav = $('#template-panel-nav').html();
+var nav_template = Handlebars.compile(nav);
+var panel = $('#template-panel').html();
+var panel_template = Handlebars.compile(panel);
+
+$.ajax({
+           type: 'GET',
+           url: '/theator/getinfo',
+           data: "json",
+           async: false, // 동기 방식으로 불러와야 한다.
+           success: function(data) {
+                if(data != null) {
+                     // 서버에서 받아와서 데이터 넣음 이건 임시
+                     $(".nav-pills").html(nav_template(data));
+                      //$(".mytab-content").html('<h1>왜 안되는거야 </h1>');
+                     $(".tab-content").html(panel_template(data));
+                }
+           }
+  });
+
+
+var addresspoint='서울 강남구 강남대로 438';
+var map='map0';
+multimap(map, addresspoint,"강남");
+
+$(".location").on("click",function(){
+  //data-toggle=pill
+  var str= $(this).attr("data-addr");
+  var no= $(this).attr("data-no");
+  var location=$(this).text();
+  map="map"+no;
+  addresspoint=str;
+  //alert(map+" "+addresspoint+""+location);
+  multimap(map, addresspoint,location);
+});
+
+
+
+// 지도를 표시할 div
+</script>
+</body>
+</html>
+
+<% include ../maininclude/footer.ejs %>

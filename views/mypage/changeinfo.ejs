@@ -1,0 +1,90 @@
+<% include ../include/header.ejs %>
+<section id="main-content">
+  <section class="wrapper">
+<style>
+.myprofile .form-group{
+  margin:5rem;
+}
+</style>
+
+
+
+
+
+<div class="row mt content-panel" style="margin:15px;padding:15px">
+<div id="edit" class="tab-pane">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 detailed">
+        <h4 class="mb">나의 프로필 정보<br></h4>
+        <form role="form" class="form-horizontal myprofile">
+          <div class="form-group">
+            <label class="col-lg-2 control-label"> 내사진</label>
+            <div class="col-lg-6">
+              <input type="file" id="exampleInputFile" class="file-pos">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">이메일</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder=" " id="email" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">이름</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder=" " id="name" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">닉네임</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder=" " id="nickname" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">성별</label>
+            <div class="col-lg-8">
+              <input type="text" placeholder=" " id="gender" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">전화번호</label>
+            <div class="col-lg-8">
+              <!-- <textarea rows="10" cols="30" class="form-control" id="" name=""></textarea> -->
+              <input type="text" placeholder=" " id="phone" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">사는 곳</label>
+            <div class="col-lg-8">
+              <!-- <textarea rows="10" cols="30" class="form-control" id="" name=""></textarea> -->
+              <input type="text" placeholder=" " id="address" class="form-control" readonly>
+            </div>
+          </div>
+          <div style="margin-bottom:4rem">
+            <hr >
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+</div>
+</div>
+
+  </section>
+</section>
+<script>
+
+
+$.getJSON('/auth/myinfo', function(data){
+  $("#email").attr("value",data.email);
+  $("#name").attr("value",data.name);
+  $("#nickname").attr("value",data.nickname);
+  $("#gender").attr("value",data.gender);
+  $("#phone").attr("value",data.phone);
+  $("#address").attr("value",data.address);
+});
+
+</script>
+<% include ../include/footer.ejs %>

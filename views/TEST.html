@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>고객센터</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <style>
+          a {   color:#5E5E5E; }
+          a:link  { text-decoration: none; color: #5E5E5E}
+          a:visited {  text-decoration: none; color: #5E5E5E}
+          a:active {  text-decoration: none; color: #5E5E5E}
+          /*a:hover { text-decoration: underline; color:#F36798}*/
+          li { font-weight:normal }
+        .click { font-weight:bold}
+          .button {
+                box-shadow: inset 0 0 0 3px #6cc091;
+                border-radius: 30px;
+                display: inline-block;
+                font-size: .75em;
+                font-weight: 400;
+                height: 2.75em;
+                line-height: 2.85em;
+                padding: 0 4em;
+                text-align: center;
+                margin: 5px;
+               background-color: #6cc091;
+                color: #ffffff !important;
+            }
+           .button:hover {
+               text-decoration: none;
+               background-color:#ffffff ;
+                color:#6cc091  !important;
+            }
+    </style>
+      <script type= "text/javascript" src="/javascripts/FAQ.js"></script>
+      <script type="text/javascript" src="//code.jquery.com/jquery-1.7.1.js"></script>
+      <script type="text/javascript">
+            var i = 0;
+            function toggle_object(post_id)
+            {
+                i = i + post_id;
+                var obj = document.getElementById('test');
+                if(!obj) return;
+                if(i%2!=0)
+                {
+                    obj.src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-128.png"; //클릭시보여줄이미지
+                }
+                else
+                {
+                    obj.src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png";//처음보여줄이미지
+                }
+            }
+            var bDisplay = true;
+            function doDisplay(){
+                var con = document.getElementById("myDIV");
+                if(con.style.display=='none'){
+                    con.style.display = 'block';
+                }else{
+                    con.style.display = 'none';
+                }
+            }
+            $(window).load(function(){
+        $("#FAQMenu #first").css("font-weight","bold");
+        $("#FAQMenu li").click(function(e) {
+            $("#FAQMenu li.click").removeClass("click");
+            $("#FAQMenu #first").css("font-weight","normal");
+            $(this).addClass("click");
+            e.stopPropagation();
+        });
+       $("#FAQMenu #first").click(function(e) {
+            $("#FAQMenu li.click").removeClass("click");
+           $("#FAQMenu #first").css("font-weight","bold");
+            e.stopPropagation();
+        });
+    });
+          function delete_button_event(id){
+              //console.log("delete_button_event 내 id", id);
+                if (confirm("이 글을 삭제하시겠습니까?") == true){    //확인
+                     alert("삭제되었습니다.");
+                    location.href="/noticeremove/"+id;
+                }else{   //취소
+                    alert("취소되었습니다.");
+                    return;
+                }
+            }
+        </script>
+  </head>
+  <body>
+      <header>
+            <nav>
+		<span>
+
+		<ul>
+			<li>
+				<a href="/" style="text-decoration:none; color: white;">홈</a>
+			</li>
+			<li><a href="/category" style="text-decoration:none; color: white;">카테고리</a></li>
+		</ul>
+	</span>
+	<span style='display: flex; flex-direction: column;'>
+			<ul style='flex-direction: column;'>
+
+			</ul>
+	</nav>
+          </header>
+      <article>
+          <div style="width:50%; height:50px; float:left;">
+            <h1 style="margin:0; padding:0px" >공지사항</h1>
+        </div>
+          <div style="width:50%; float:right; height:50px; ">
+
+              <div><br>
+                <span style="font-weight:bold; ">5월 4주 새로 올라온 작품</span>
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                    <span style="float:right"><img src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png"  onmouseover="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-128.png'"  onmouseout="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png'" width="50px"/></span>
+                <div style="DISPLAY: none">
+                    <br><br><br><hr  style="height:3.5px;">
+                    <div style=" float:right; width:100%;">
+              
+                    </div>
+                    <div>
+                    <span>
+                        이번 주에도 왓챠플레이와 함께 하실 수 있도록 새로운 작품을 준비했어요.<br/>
+                        어떤 작품들이 추가되었는지 확인해보세요. 두근두근!<br/><br/>
+
+                        <strong> HBO 인기 시리즈 업데이트 </strong><br/>
+                        <strong> &lt;실리콘 밸리 시즌 1~3&gt;, &lt;걸스 시즌 1~5&gt;, &lt;부통령이 필요해 시즌 1~4&gt; 도착! </strong><br/>
+                        오래 기다리셨어요. 당신의 주말을 책임져줄 HBO의 대표 시리즈를 지금 바로 왓챠플레이에서 감상하세요!<br/><br/>
+
+                        <strong> 이번 주 주목할 만한 신작 </strong><br/>
+                        가장 흔한 소재로 가장 품위있는 드라마를 만들어낸 김선아, 김희선 주연의 &lt;품위있는 그녀&gt;<br/>
+                        14,000년전부터 살아온 사람의 자기고백, 장르의 구속을 넘어선 화제의 명작 SF &lt;맨 프럼 어스&gt; <br/>
+                        승률 100% 로비스트의 거대 권력을 향한 가장 영리한 도전, 제시카 차스테인의 매혹적인 스릴러 &lt;미스 슬로운&gt; <br/>
+                        우리는 다른 거지 틀린 게 아니야, 제 69회 칸영화제 주목할만한 시선 감독상 수상작 &lt;캡틴 판타스틱&gt; <br/>
+                        담담한 시선으로 섬세하게 담아낸 용서의 여정, 당신의 가슴을 뜨겁게 울릴 다르덴 형제의 명작 &lt;아들&gt; <br/>
+                        언론과 평단의 극찬을 받은 선댄스 화제작, 플로리다 프로젝트 감독 션 베이커의 감귤 맛 이야기 &lt;탠저린&gt;<br/>
+                        <span style="text-decoration: underline;"> 총 영화 22편, TV시리즈 23편(에피소드 362개)</span><br/><br/>
+
+                        <strong>최근 한 달간 새로 올라온 작품</strong><br/>
+                        &lt;리얼&gt;, &lt;노무현입니다&gt;, &lt;더 와이어 전 시즌&gt;, &lt;보드워크 엠파이어 전 시즌&gt;, &lt;안녕, 프란체스카 전 시즌&gt;, &lt;태릉선수촌&gt;, &lt;극장판 카드캡터 사쿠라 - 마법의 카드&gt;, &lt;원피스 15기 : 마린포드 PART2&gt;, &lt;슬램덩크&gt;, &lt;픽셀&gt;, &lt;나쁜 녀석들 2&gt;, &lt;몬스터 호텔 2&gt;, &lt;플란다스의 개&gt;, &lt;톰 소여의 모험&gt;, &lt;엄마찾아 삼만리&gt;, &lt;나, 다니엘 블레이크&gt;, &lt;스포트라이트&gt;, &lt;제너레이션 킬&gt;, &lt;트루블러드 전 시즌&gt;, &lt;타이페이 카페 스토리&gt;, &lt;청년경찰&gt; 등<br/>
+                        <span style="text-decoration: underline;"> 총 영화 144편, TV시리즈 115편(에피소드 2402개)</span><br/><br/>
+
+                        여러분이 좋아할 만한 작품, 매주 열심히 찾고 있어요.<br/>
+                        더 좋은 신작으로 찾아 올게요 :)<br/>
+
+                        왓챠플레이 팀 드림<br/>
+                    </span>
+                    </div>
+                </a></div>
+                <br><br><br>
+                <hr>
+            </div>
+            <div><br>
+                <span style="font-weight:bold; ">5월까지 감상가능한 컨텐츠</span>
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                    <span style="float:right"><img src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png"  onmouseover="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-128.png'"  onmouseout="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png'" width="50px"/></span>
+                <div style="DISPLAY: none">
+                    <br><br><br><hr  style="height:3.5px;">
+                    <div style=" float:right; width:100%;">
+
+                    </div>
+                    <div>
+                    <span>
+                        왓챠플레이에 콘텐츠를 제공하는 권리사의 요청으로 안타깝게도 각 종료일까지 왓챠플레이에서 볼 수 있는 컨텐츠들입니다.<br/>
+                        더 좋은 콘텐츠로 서비스할 수 있도록 계속 노력하겠습니다.<br/><br/>
+
+                        2018. 5. 3<br/>
+                        도라에몽 17기(1980)<br/>
+                        유희왕 1기(1996)<br/><br/>
+
+                        2018. 5. 4<br/>
+                        마더 게임—그녀들의 계급(2015)<br/><br/>
+
+                        2018. 5. 11<br/>
+                        영거 시즌 2(2016)<br/><br/>
+
+                        2018. 5. 12<br/>
+                        그해 여름(2006)<br/>
+                        락 앤 러브(2011)<br/>
+                        럼 다이어리(2011)<br/>
+                        레닌그라드: 900일간의 전투(2009)<br/>
+                        레이징 피닉스 2: 여자 옹박의 귀환(2011)<br/>
+                        로우리스 : 나쁜 영웅들(2012)<br/>
+                        롱 폴링(2011)<br/>
+                        맥시멈 컨빅션(2012)<br/>
+                        미래경찰 X(2010)<br/>
+                        별이 빛나는 밤(2011)<br/>
+                        블랙 헤븐(2010)<br/>
+                        빌리와 용감한 녀석들 3D(2010)<br/>
+                        사랑의 침묵(2009)<br/>
+                        세이지: 육지의 물고기(2011)<br/>
+                        스타: 빛나는 사랑(2011)<br/>
+                        싱글 맨(2009)<br/>
+                        씨바이퍼(2012)<br/>
+                        아워 이디엇 브라더(2011)<br/>
+                        업사이드 다운(2012)<br/>
+                        엔드 오브 왓치(2012)<br/>
+                        옹박: 영웅의 탄생(2011)<br/>
+                        웰컴 투 사우스(2010)<br/>
+                        점쟁이들(2012)<br/>
+                        징기스칸: 제국의 건설(2012)<br/>
+                        차이나 블루(2012)<br/>
+                        초한지: 영웅의 부활(2012)<br/>
+                        칼리지(2008)<br/>
+                        컨빅션(2010)<br/>
+                        코드네임 제로니모(2012)<br/>
+                        킹 오브 더 힐(2007)<br/>
+                        투명인간 그리프(2010)<br/>
+                        트랜짓(2012)<br/>
+                        플로리스(2007)<br/>
+                        해결사(2011)<br/>
+                        행복(2007)<br/>
+                        허브(2007)<br/>
+                        헤이츠(2012)<br/>
+                        내 남자의 아내도 좋아(2008)<br/>
+                        스카이라인(2010)<br/>
+                        미녀는 괴로워(2006)<br/>
+                        왕을 참하라(2017)<br/><br/>
+
+                        2018. 5. 18<br/>
+                        킥복서 리턴즈 (2016)<br/>
+                        스트라튼(2016)<br/><br/>
+
+                        2018. 5. 23<br/>
+                        사이키 쿠스오의 재난(2016)<br/><br/>
+
+                        2018. 5. 27<br/>
+                        울려라! 유포니엄(2015)<br/>
+                        역시 내 청춘 러브 코메디는 잘못됐다 속(2015)<br/>
+                        마법소녀 리리컬 나노하 VIVID(2015)<br/>
+                        식극의 소마(2015)<br/>
+                        시원찮은 그녀를 위한 육성방법(2015)<br/><br/>
+
+                        2018. 5. 30<br/>
+                        오늘도 빵쇼!(2013)<br/>
+
+                        2018. 5. 31<br/>
+                        제국의 눈물(2014)<br/>
+                        동화 2분의 1(2011)<br/>
+                        신참자(2010)<br/>
+                        신참자 스페셜 - 붉은 손가락(2011)<br/>
+                        현대인 생활백서 (2014)<br/>
+                        세계인 생활백서(2014)<br/>
+                        신참자 스페셜 - 잠자는 숲(2014)<br/>
+                        한니발 시즌 1(2012)<br/>
+                        오세암(2002)<br/>
+                        스파르타쿠스 3 : 최후의 전쟁(2013)<br/>
+                    </span>
+                    </div>
+                </a></div>
+                <br><br><br>
+                <hr>
+            </div>
+
+               </form>
+            <h1 style="color:#191919;"><br><br>FAQ</h1>
+      <hr style="height:3.5px;">
+      <ul id="FAQMenu">
+          <li id="first" onclick="innerHTMLTest1()" style="color:rgba(0, 0, 0, 1); font-size:16px; ">자주묻는질문</li>
+          <li onclick="innerHTMLTest2()" style="color:black; font-size:16px;">결제</li>
+          <li onclick="innerHTMLTest3()" style="color:black; font-size:16px;">해지/환불</li>
+          <li onclick="innerHTMLTest2()" style="color:black; font-size:16px;">이용권/쿠폰</li>
+          <li onclick="innerHTMLTest1()" style="color:black; font-size:16px;">계정관리</li>
+          <li onclick="innerHTMLTest2()" style="color:black; font-size:16px;">컨텐츠</li>
+          <li onclick="innerHTMLTest3()" style="color:black; font-size:16px;">재생 문의</li>
+          <li onclick="innerHTMLTest1()" style="color:black; font-size:16px;">서비스 문의</li>
+      </ul>
+       <hr style="height:3.5px;">
+        <div id="rand-val">
+          <div>
+            <span >Q. </span>
+            <span>쿠폰이 등록되지 않아요. </span>
+            <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                    <span style="float:right"><img src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png"  onmouseover="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-128.png'"  onmouseout="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png'" width="50px"/></span>
+            <div style="DISPLAY: none">
+                <br><br><hr>
+                <font color="pink">
+                    <b>
+                        안내1. 대소문자를 구분하여 쿠폰 코드를 다시 입력해 주세요.<br>
+                        안내2. 이미 사용된 쿠폰 입니다. <br>
+                    </b>
+                </font>
+                    A계정에 쿠폰이 등록되었는데 B계정에 동일한 쿠폰 등록 시 안내되는 문구입니다. 현재 로그인되어 있는 계정이 아닌 가입하신 다른 계정을 확인 해주세요.<br>
+                    <font color="pink">
+                        <b>안내3. 현재 사용하고 계신 이용권 플랜과 일치하지 않은 쿠폰입니다.<br></b>
+                    </font>
+                    이미 이용권 구독중인 상태에서는 쿠폰이 등록되지 않습니다. [앱 마이페이지 > 설정 > 계정설정 > 해지하기]에서 해지 신청 후 이용권 만료일이 지난 이후에 다시 쿠폰 등록 해주세요.<br>
+
+                    위 내용과 별개로 쿠폰이 등록되지 않는다면 무비하이 고객센터로
+                    <b>'쿠폰 번호'</b>
+                    와
+                    <b>'무비하이 가입 이메일 계정'</b>
+                    을 알려주세요.<br>
+            </a></div>
+            </div>
+        <br><br><hr>
+        <div>
+            <span>Q. </span>
+            <span>해지는 어떻게 하나요? </span>
+            <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                    <span style="float:right"><img src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png"  onmouseover="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-128.png'"  onmouseout="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png'" width="50px"/></span>
+            <div style="DISPLAY: none">
+                <br><br><hr>
+                * 해지 후에도 현재 이용 중인 이용권의 만료일까지 감상 가능하며, 다음 결제일부터 자동결제 되지 않습니다.<br>
+                    * 결제일 당일에 해지하신 경우 다음 결제 예정일에 반영될 수 있습니다.<br>
+                    * 애플 iTunes / 구글 결제의 경우 웹이 아닌 앱에서 해지를 진행해주세요.<br>
+                    <font color="pink"><b>[카드 결제/쿠폰 등록/휴대폰 소액 결제]</b></font><br>
+                    <b>앱에서 해지</b><br>
+                    1. 마이페이지<br>
+                    2. 설정   <br>
+                    3. 계정 설정<br>
+                    4. 하단의 ‘해지하기’ 선택<br>
+                    <b>웹에서 해지</b><br>
+                    1. 무비하이 사이트(play.watcha.net)<br>
+                    2. 우측 상단의 프로필 아이콘 선택<br>
+                    3. 설정<br>
+                    4. ‘해지하기’ 선택<br>
+                    <font color="pink"><b>[해지 취소하기]</b></font><br>
+                    앱에서 해지 취소: 마이페이지 > 설정 > 이용권 상태의 '해지 취소' 선택<br>
+                    웹에서 해지 취소: 무비하이 사이트(play.watcha.net) > 우측 상단의 프로필 아이콘 선택 > 설정 > 이용권 상태의 '해지 취소' 선택<br>
+            </a></div>
+            </div>
+        <br><br><hr>
+        <div>
+            <span>Q. </span>
+            <span>무비하이의 예상별점과 추천의 원리는 무엇인가요? </span>
+            <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                    <span style="float:right"><img src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png"  onmouseover="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-128.png'"  onmouseout="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png'" width="50px"/></span>
+            <div style="DISPLAY: none">
+                <br><br><hr>
+                    무비하이는 무하에서 쌓은 데이터를 활용해 영화와 드라마를 추천해 드려요!<br><br>
+                    1. 먼저, 내가 매긴 별점을 통해 취향이 비슷한 사람을 찾습니다. 누구나 영화나 드라마를 볼 때 자기만의 중요한 기준이 있습니다. 예를 들면, "난 영상미나 음악이 중요해… 아니야 스토리가 갑이지… 에이 영화는 연기 보는 맛이야…" 같은 것이죠. 결국 나도 모르게 이 기준에 따라 별점을 주게 되고, 따라서 내가 매긴 별점들을 쭈욱 분석하면 내가 중요하게 생각하는 기준, 나만의 성향을 분석할 수가 있습니다. 그리고 이렇게 분석한 성향을 서로 서로 비교하면, 아주 비슷한 성향을 가진 사람들을 찾을 수 있겠죠. 이 사람들이 바로 나와 취향이 비슷한 사람들입니다.<br><br>
+
+                    2. 이렇게 내 취향과 비슷한 사람들이 매긴 평가를 모아서 작품 별로 "내 예상별점"을 만듭니다. 나와 취향이 비슷한 사람들이 개별 작품에 매긴 점수는, 아마도 내가 실제로 매길 점수와 아주 아주 유사할겁니다. 즉 보지 않았더라도 이 사람들이 매긴 점수를 보면, 내가 이 작품에 몇 점을 줄지 미리 알 수가 있는 것이죠. 무하는 나와 취향이 비슷한 사람들의 평가를 종합해서, 자동으로 작품 별 "내 예상별점"을 계산하고 즉시 보여줍니다.<br><br>
+
+                    3. "내 예상별점"이 높은 작품들을 추천합니다 이렇게 계산된 예상별점이 "3점 후반대 ~ 5점"에 가까운 영화들은 내가 재미있게 즐길 확률이 높습니다. 따라서 이런 작품들을 나에게 추천하되, 만약 내가 좋아하는 감독이나 장르에 해당한다면 가산점을 줘서 더 먼저 추천합니다.<br><br>
+
+                    어때요? 참 쉽죠! 물론 이건 말로 간단히 풀어 설명한 것이고, 실제 위의 1~3번 과정을 "엄청난 양의 데이터에 대해 실시간으로 오류 없이 정확하게 계산하는 것"은 정말 정말 어려운 일입니다. <br><br>
+
+                    무하는 수 년에 걸쳐 자체 개발한 추천 엔진 '핀셋'을 통해 이 모든 과정을 아주 안정적으로 제공하고 있고 별점과 사용자가 쌓일 때마다 "기계학습" 이라는 과정으로 계속 개선되고 있어요. 이제 뭐볼지 고민하지 마세요!<br>
+            </a></div>
+          </div>
+        <br><br><hr>
+        <div>
+            <span >Q. </span>
+            <span>TV지원 이용권으로 볼 수 있는 기기가 궁금해요. </span>
+            <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                    <span style="float:right"><img src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png"  onmouseover="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-128.png'"  onmouseout="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png'" width="50px"/></span>
+            <div style="DISPLAY: none">
+                <br><br><hr>
+                <font color="pink">
+                    <b>
+                        안내1. 대소문자를 구분하여 쿠폰 코드를 다시 입력해 주세요.<br>
+                        안내2. 이미 사용된 쿠폰 입니다. <br>
+                    </b>
+                </font>
+                    A계정에 쿠폰이 등록되었는데 B계정에 동일한 쿠폰 등록 시 안내되는 문구입니다. 현재 로그인되어 있는 계정이 아닌 가입하신 다른 계정을 확인 해주세요.<br>
+                    <font color="pink">
+                        <b>안내3. 현재 사용하고 계신 이용권 플랜과 일치하지 않은 쿠폰입니다.<br></b>
+                    </font>
+                    이미 이용권 구독중인 상태에서는 쿠폰이 등록되지 않습니다. [앱 마이페이지 > 설정 > 계정설정 > 해지하기]에서 해지 신청 후 이용권 만료일이 지난 이후에 다시 쿠폰 등록 해주세요.<br>
+
+                    위 내용과 별개로 쿠폰이 등록되지 않는다면 무비하이 고객센터로
+                    <b>'쿠폰 번호'</b>
+                    와
+                    <b>'무비하이 가입 이메일 계정'</b>
+                    을 알려주세요.<br>
+            </a></div>
+            </div>
+        <br><br><hr>
+        <div>
+            <span>Q. </span>
+            <span>화질이 별로예요. 좋은 화질로 볼 수 없나요? </span>
+            <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                    <span style="float:right"><img src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png"  onmouseover="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-128.png'"  onmouseout="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png'" width="50px"/></span>
+            <div style="DISPLAY: none">
+                <br><br><hr>
+                * 해지 후에도 현재 이용 중인 이용권의 만료일까지 감상 가능하며, 다음 결제일부터 자동결제 되지 않습니다.<br>
+                    * 결제일 당일에 해지하신 경우 다음 결제 예정일에 반영될 수 있습니다.<br>
+                    * 애플 iTunes / 구글 결제의 경우 웹이 아닌 앱에서 해지를 진행해주세요.<br>
+                    <font color="pink"><b>[카드 결제/쿠폰 등록/휴대폰 소액 결제]</b></font><br>
+                    <b>앱에서 해지</b><br>
+                    1. 마이페이지<br>
+                    2. 설정   <br>
+                    3. 계정 설정<br>
+                    4. 하단의 ‘해지하기’ 선택<br>
+                    <b>웹에서 해지</b><br>
+                    1. 무비하이 사이트(play.watcha.net)<br>
+                    2. 우측 상단의 프로필 아이콘 선택<br>
+                    3. 설정<br>
+                    4. ‘해지하기’ 선택<br>
+                    <font color="pink"><b>[해지 취소하기]</b></font><br>
+                    앱에서 해지 취소: 마이페이지 > 설정 > 이용권 상태의 '해지 취소' 선택<br>
+                    웹에서 해지 취소: 무비하이 사이트(play.watcha.net) > 우측 상단의 프로필 아이콘 선택 > 설정 > 이용권 상태의 '해지 취소' 선택<br>
+            </a></div>
+            </div>
+        <br><br><hr>
+        <div>
+            <span>Q. </span>
+            <span>모바일에서 화질 조정을 할 수 있나요? </span>
+            <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                    <span style="float:right"><img src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png"  onmouseover="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-128.png'"  onmouseout="this.src='https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-down-01-128.png'" width="50px"/></span>
+            <div style="DISPLAY: none">
+                <br><br><hr>
+                    무비하이는 무하에서 쌓은 데이터를 활용해 영화와 드라마를 추천해 드려요!<br><br>
+                    1. 먼저, 내가 매긴 별점을 통해 취향이 비슷한 사람을 찾습니다. 누구나 영화나 드라마를 볼 때 자기만의 중요한 기준이 있습니다. 예를 들면, "난 영상미나 음악이 중요해… 아니야 스토리가 갑이지… 에이 영화는 연기 보는 맛이야…" 같은 것이죠. 결국 나도 모르게 이 기준에 따라 별점을 주게 되고, 따라서 내가 매긴 별점들을 쭈욱 분석하면 내가 중요하게 생각하는 기준, 나만의 성향을 분석할 수가 있습니다. 그리고 이렇게 분석한 성향을 서로 서로 비교하면, 아주 비슷한 성향을 가진 사람들을 찾을 수 있겠죠. 이 사람들이 바로 나와 취향이 비슷한 사람들입니다.<br><br>
+
+                    2. 이렇게 내 취향과 비슷한 사람들이 매긴 평가를 모아서 작품 별로 "내 예상별점"을 만듭니다. 나와 취향이 비슷한 사람들이 개별 작품에 매긴 점수는, 아마도 내가 실제로 매길 점수와 아주 아주 유사할겁니다. 즉 보지 않았더라도 이 사람들이 매긴 점수를 보면, 내가 이 작품에 몇 점을 줄지 미리 알 수가 있는 것이죠. 무하는 나와 취향이 비슷한 사람들의 평가를 종합해서, 자동으로 작품 별 "내 예상별점"을 계산하고 즉시 보여줍니다.<br><br>
+
+                    3. "내 예상별점"이 높은 작품들을 추천합니다 이렇게 계산된 예상별점이 "3점 후반대 ~ 5점"에 가까운 영화들은 내가 재미있게 즐길 확률이 높습니다. 따라서 이런 작품들을 나에게 추천하되, 만약 내가 좋아하는 감독이나 장르에 해당한다면 가산점을 줘서 더 먼저 추천합니다.<br><br>
+
+                    어때요? 참 쉽죠! 물론 이건 말로 간단히 풀어 설명한 것이고, 실제 위의 1~3번 과정을 "엄청난 양의 데이터에 대해 실시간으로 오류 없이 정확하게 계산하는 것"은 정말 정말 어려운 일입니다. <br><br>
+
+                    무하는 수 년에 걸쳐 자체 개발한 추천 엔진 '핀셋'을 통해 이 모든 과정을 아주 안정적으로 제공하고 있고 별점과 사용자가 쌓일 때마다 "기계학습" 이라는 과정으로 계속 개선되고 있어요. 이제 뭐볼지 고민하지 마세요!<br>
+            </a></div>
+          </div>
+        </div>
+        <br><br><hr>
+      </article>
+
+      <!-- Footer -->
+	<footer>
+		<div class="footer__links">
+			<a href="#">무하 서비스 이용약관</a>
+			<span>   |   </span>
+			<a href="#" class="privacy">개인정보 취급방침</a>
+			<span>   |   </span>
+			<a class="" href="/help">고객센터</a>
+			<span>   |   </span>
+			<a href="http://frograms.com/joinus" target="_blank">채용정보</a>
+		</div>
+		<div class="footer__contact-info" data-reactid=".2dgluquabr4.6.1">
+			<div class="footer__contact" data-reactid=".2dgluquabr4.6.1.0">
+				<div class="footer__contact-title" data-reactid=".2dgluquabr4.6.1.0.0">고객센터(이용 및 결제 문의)</div>
+				<div class="footer__contact-desc" data-reactid=".2dgluquabr4.6.1.0.1">
+					<a href="mailto:cs@watchaplay.net" data-reactid=".2dgluquabr4.6.1.0.1.0">https://www.kw.ac.kr</a>
+					<span data-reactid=".2dgluquabr4.6.1.0.1.1"> / 000-1234-5678 (유료)</span>
+				</div>
+			</div>
+			<div class="footer__contact" data-reactid=".2dgluquabr4.6.1.1">
+				<div class="footer__contact-title" data-reactid=".2dgluquabr4.6.1.1.0">제휴 및 대외 협력</div>
+				<div class="footer__contact-desc" data-reactid=".2dgluquabr4.6.1.1.1">
+					<a href="mailto:contact@watcha.com" data-reactid=".2dgluquabr4.6.1.1.1.0">https://ce.kw.ac.kr:501</a>
+					<span data-reactid=".2dgluquabr4.6.1.1.1.1"> / 000-1234-5678 (유료)</span>
+				</div>
+			</div>
+		</div>
+	</footer>
+  </body>
+</html>

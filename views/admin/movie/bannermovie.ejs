@@ -1,0 +1,243 @@
+<% include ../admininclude/header.ejs %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+<script>
+$("#home").removeClass( "active" );
+$("#movieset").addClass( "active" );
+
+</script>
+<style>
+  .panel-heading .btn-xs{
+    border:1px solid white;
+    opacity: 0.7;
+    background-color: #343a40;
+    color: white;
+    border-radius:1px;
+  }
+
+
+.panel-heading .btn-xs:hover{
+  border:1px solid #868e96;
+  opacity: 0.7;
+  background-color: white;
+  color: #868e96;
+  border-radius:1px;
+}
+#pagination li:active {
+  background-color:#495057;
+
+}
+
+</style>
+
+
+
+<div class="modal fade" id="ChangeBannerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width:900px">
+    <div class="modal-content" style="border-radius:1px">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+          aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">등록된 포스터 확인</h4>
+      </div>
+
+      <div class="modal-body">
+         <div class="container" style="width:780px ;margin:2rem">
+
+          <div class="poster-wrap" style="display:inline-block;margin-left:4rem;">
+             <div class="BannerModal_title"></div>
+
+           </div>
+         </div>
+      </div>
+       <div class="modal-footer">
+
+      </div>
+     </div> <!-- /.modal-content -->
+  </div> <!-- /.modal-dialog -->
+</div> <!-- END Movie_Datail -->
+
+
+<div class="modal fade" id="BannerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width:900px">
+    <div class="modal-content" style="border-radius:1px">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+          aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">등록된 포스터 확인</h4>
+      </div>
+
+      <div class="modal-body">
+         <div class="container" style="width:780px ;margin:2rem">
+
+          <div class="poster-wrap" style="display:inline-block;margin-left:4rem;">
+             <div class="BannerModal_title"></div>
+             <hr>
+               <img class="BannerModal_poster" src="<%= rows.poster%>" style= "height:auto; width:650px;" >
+             <hr>
+           </div>
+         </div>
+      </div>
+       <div class="modal-footer">
+         <form id="FileUpload" action="/admin/bannermovie" method="post" enctype="multipart/form-data">
+          <div class="fileBox">
+           <input type="text" class="fileName" readonly="readonly">
+           <label for="uploadBtn" class="btn_file">이미지 로드</label>
+           <input type="file" name="userfile" id="uploadBtn" class="uploadBtn" accept=".jpg,.jpeg,.png,.gif,.bmp">
+          </div>
+         <form>
+         <input type="hidden" class="movieid">
+         <button id='modalPosterBtn' type="button" class="btn btn-default">포스터변경</button>
+         <button id='modaldeleteBtn' type="button" class="btn btn-default">삭제하기</button>
+         <button id='modalCloseBtn' type="button" class="btn btn-default">닫기</button>
+      </div>
+
+     </div> <!-- /.modal-content -->
+  </div> <!-- /.modal-dialog -->
+</div> <!-- END Movie_Datail -->
+
+
+
+<section id="main-content">
+  <section class="wrapper">
+    <div class="row mt content-panel" style="margin:15px;padding:15px">
+      <div id="edit" class="tab-pane">
+
+
+        <h2  style="margin-top: 10px; display:inline-block"><strong> Banner 영화 관리</strong></h2>
+        <hr>
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>제목</th>
+              <th>감독</th>
+              <th>개봉날짜</th>
+              <th>상영시간</th>
+              <th>평점</th>
+            </tr>
+          </thead>
+
+          <%
+          var start=0;
+          var end=rows.length;
+           for(var i=start; i<end; i++){
+                var item = rows[i];
+          %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><a class="ClickBanner" data-title="<%= item.title %>" data-bannerimg="<%= item.bannerimg %>" data-mid="<%= item.movieid %>" style="cursor:pointer"><%= item.title %><a></td>
+              <td><%= item.name %></td>
+              <td><%= item.releasedate %></td>
+              <td><%= item.runtime %></td>
+              <td><%= item.voteavg %></td>
+            </tr>
+          <%
+            }
+          %>
+
+        </table>
+        <br>
+      </div>
+    </div>
+    </section>
+</section>
+
+
+<script>
+	$(".ClickBanner").on("click", function(){
+    var title=$(this).attr("data-title");
+    var poster=$(this).attr("data-bannerimg");
+    var movieid=$(this).attr("data-mid");
+
+
+    $(".BannerModal_poster").attr("src",poster);
+    $(".movieid").attr("value",movieid);
+    var str = '<h2 style="margin-top:0px">'+title+'<h2>';
+    $(".BannerModal_title").html(str);
+
+    //alert(hye);
+
+    $("#BannerModal").modal('show');
+  });
+
+
+  $("#modalCloseBtn").on("click", function(){
+    $("#BannerModal").modal('hide');
+  });
+
+  $("#modalPosterBtn").on("click", function(){
+
+    var movieid = $(".movieid").val();
+    var form = $('#FileUpload')[0];
+    var formData = new FormData(form);
+    $.ajax({
+          type : 'put',
+          url : '/admin/bannermovie/'+movieid,
+          processData : false,
+          contentType : false,
+          dataType : 'json', //여기다 제이슨으로 하면 제이슨 형태로오고, xml로 하면 xml형태로 온다.
+          data : formData,
+          success : function(result) {
+              swal(result["success"],"등록 현황으로 이동","success").then(
+              ()=>{
+                self.location ="/admin/bannermovie";
+              });
+          },
+          error : function(data) {   // 오류가 발생했을 때 호출된다.
+
+                var errorcontent=JSON.parse(data["responseText"]);
+                if(errorcontent.code==1){
+                  swal("등록 에러", errorcontent.error);
+                }
+          }
+      });
+
+  });
+
+
+
+  $("#modaldeleteBtn").on("click", function(){
+    var movieid = $(".movieid").val();
+  
+    $.ajax({
+          type : 'DELETE',
+          url : '/admin/bannermovie/'+movieid,
+          dataType : 'json', //여기다 제이슨으로 하면 제이슨 형태로오고, xml로 하면 xml형태로 온다.
+          success : function(result) {
+              swal(result["success"],"삭제 성공","success").then(
+              ()=>{
+                self.location ="/admin/bannermovie";
+              });
+          },
+          error : function(data) {   // 오류가 발생했을 때 호출된다.
+                var errorcontent=JSON.parse(data["responseText"]);
+                if(errorcontent.code==1){
+                  swal("삭제 에러", errorcontent.error);
+                }
+          }
+      });
+
+  });
+
+
+
+  var uploadFile = $('.fileBox .uploadBtn');
+  uploadFile.on('change', function(){
+  	if(window.FileReader){
+  		var filename = $(this)[0].files[0].name;
+  	} else {
+  		var filename = $(this).val().split('/').pop().split('\\').pop();
+  	}
+  	$(this).siblings('.fileName').val(filename);
+  });
+
+
+
+
+
+
+
+</script>
+
+<% include ../admininclude/footer.ejs %>

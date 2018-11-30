@@ -1,0 +1,102 @@
+<% include ../maininclude/header.ejs %>
+
+<section id="content">
+    <div class="container">
+
+     <div class="login_wrapper">
+       <div class="row text-center">
+  	    <div class="col-md-6 col-md-offset-3">
+  	        <div class="card" style="border:1px solid #868e96; padding:5rem; border-radius:1px ;box-shadow: 3px 3px 3px 3px #aaaaaa; ">
+  	            <div class="card-body">
+  	                <div class="login-img">
+  	                    <img src="/img/logo3.png">
+  	                </div>
+                    <br>
+  	                <div class="login-title">
+  	                    <h2 style="margin-bottom:20px">로그인</h2>
+  	                </div>
+  	                <div class="login-form mt-4">
+  	                <form id="LoginForm" action="/auth/login" method="post">
+                          <div class="form-row">
+                          <div class="form-group col-md-12" style="padding:0">
+                                <input id="username" name="username" placeholder="Email Address" class="form-control" type="text">
+                              </div>
+                              <div class="form-group col-md-12" style="padding:0">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                              </div>
+                            </div>
+
+                           <div class="form-row">
+                          <div class="form-group">
+                                  <div class="form-check" style="text-align:left;">
+                                    <input class="form-check-input" type="checkbox" value="" id="updatecheck1">
+                                    <label class="form-check-label" for="updatecheck1">
+                                      <small>기억하기 <a href="#"></a> </small>
+                                    </label>
+                                  </div>
+                                </div>
+                          </div>
+                          <% if (message.length!==0 ) { %>
+                              <div class="alert alert-danger" style="margin-bottom: 10px;padding:8px" ><%= message %></div>
+                          <%
+                             }
+                          %>
+
+                          <div class="form-row" style="margin-bottom:10px">
+                              <button type="submit" id="login_btn" class="btn btn-danger btn-block">로그인</button>
+                          </div>
+
+                          <div class="form-row" style="margin-bottom:10px">
+                              <button type="button" class="btn btn-info btn-block" ><a href="/auth/google" style="color:white;"> Google계정으로 로그인</a></button>
+                          </div>
+
+                          <div class="form-row" style="margin-bottom:10px">
+                              <button type="button" class="btn btn-primary btn-block" ><a href="/auth/github" style="color:white;">Github 계정으로 로그인</a></button>
+                          </div>
+
+                      </form>
+  	                 </div>
+
+                        <div class="forgetpw pull-left">
+      	                    <a href="register">회원가입 하기</a>
+      	                </div>
+
+      	                <div class="forgetpw pull-right">
+      	                    <a href="findpwd">비밀번호 찾기</a>
+      	                </div>
+
+  	                </div>
+  	           </div>
+  	        </div>
+  	    </div>
+     </div>
+
+   </div>
+<!-- /.row -->
+<script>
+  $("#LoginForm").validate({
+  rules: {
+      username: {
+          required : true,
+          minlength : 6,
+          email:true
+        },
+        password: {
+          required : true
+        }
+      },
+      messages : {
+        username: {
+          required : "필수로 입력하세요",
+          minlength : "최소 {0}글자 이상이어야 합니다",
+          email : "메일규칙에 어긋납니다"
+        },
+        password: {
+          required : "필수로 입력하세요"
+       }
+    }
+  });
+</script>
+
+</section>
+<% include ../maininclude/footer.ejs %>

@@ -1,0 +1,385 @@
+<% include ../admininclude/header.ejs %>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+<style>
+
+  .flatpickr-input[readonly] {
+      cursor: pointer;
+  }
+
+  .panel-heading .btn-xs{
+    border:1px solid white;
+    opacity: 0.7;
+    background-color: #343a40;
+    color: white;
+    border-radius:1px;
+  }
+
+
+.panel-heading .btn-xs:hover{
+  border:1px solid #868e96;
+  opacity: 0.7;
+  background-color: white;
+  color: #868e96;
+  border-radius:1px;
+}
+#pagination li:active {
+  background-color:#495057;
+
+}
+
+.releasetheator span{
+  margin:1rem;
+}
+
+</style>
+
+<div class="modal fade" id="banner" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width:900px">
+    <div class="modal-content" style="border-radius:1px">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+          aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><strong>베너 이미지 업로드</strong></h4>
+      </div>
+      <div class="modal-body">
+         <div class="container" style="width:780px ;margin:2rem">
+           <div class="mv_img" style="display:inline-block">
+             <img src="<%= rows.poster%>" style= "height:250px; width:auto; margin-right:30px;vertical-align: text-bottom;" >
+           </div>
+
+
+           <div class="mv_info" style=" display:inline-block; margin-top:2rem">
+             <h2 style="margin-bottom: 20px;"><%=rows.title%></h2>
+             <div class="mv" style="font-size: 20px">
+
+               <div> [평점]  <%= rows.voteavg%></div>
+               <div> [평가인원]  <%= rows.votecount%></div>
+               <div> [장르]  <%= rows.genre%> </div>
+               <div> [감독]  <%= rows.name%> </div>
+               <div> [개봉일] <%= rows.releasedate%> </div>
+               <br>
+
+            <form id="FileUpload" action="/admin/bannermovie" method="post" enctype="multipart/form-data">
+             <div class="fileBox">
+             	<input type="text" class="fileName" readonly="readonly">
+             	<label for="uploadBtn" class="btn_file">이미지 로드</label>
+             	<input type="file" name="userfile" id="uploadBtn" class="uploadBtn" accept=".jpg,.jpeg,.png,.gif,.bmp">
+             </div>
+            <form>
+
+             </div>
+           </div>
+           <hr>
+           <div class="moviedes" style="font-size: 20px">
+             <p>[줄거리] </p>
+             <%= rows.description%>
+           </div>
+        </div>
+      </div>
+       <div class="modal-footer">
+         <button id='modalRegisterBtn' type="button" class="btn btn-default">등록하기</button>
+         <button id='modalCloseBtn' type="button" class="btn btn-default">취소</button>
+      </div>
+     </div> <!-- /.modal-content -->
+  </div> <!-- /.modal-dialog -->
+</div> <!-- END Movie_Datail -->
+
+
+
+<div class="modal fade" id="releasemovie" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top:5%">
+  <div class="modal-dialog" >
+    <div class="modal-content" style="border-radius:1px">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+          aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><strong>개봉영화 등록</strong></h4>
+      </div>
+      <div class="modal-body">
+
+           <div class="mv_img" style="display:inline-block">
+             <img src="<%= rows.poster%>" style= "height:250px; width:auto; margin-right:30px;vertical-align: text-bottom;" >
+           </div>
+
+
+           <div class="mv_info" style=" display:inline-block; margin-top:0rem">
+             <h2 style="margin-bottom: 20px;"><%=rows.title%></h2>
+             <div class="mv" style="font-size: 20px">
+
+               <div> [장르]  <%= rows.genre%> </div>
+               <div> [감독]  <%= rows.name%> </div>
+               <div> [개봉일] <%= rows.releasedate%> </div>
+               <br>
+
+             </div>
+           </div>
+
+            <legend class="checktheator" style="padding:10px">상영할 극장 선택</legend>
+
+              <div class="releasetheator"> </div> <!-- 이부분에 체크박스 -->
+              <br>
+              <div class="form-group " style="padding:0">
+                <input class="flatpickr flatpickr-input form-control" id="closedate" type="text" placeholder="마감날짜선택" data-id="inline" readonly="readonly">
+              </div>
+
+
+
+      </div>
+       <div class="modal-footer">
+         <button id='modalRegisterBtn_release' type="button" class="btn btn-default">등록하기</button>
+         <button id='modalCloseBtn_release' type="button" class="btn btn-default">취소</button>
+      </div>
+     </div> <!-- /.modal-content -->
+  </div> <!-- /.modal-dialog -->
+</div> <!-- END Movie_Datail -->
+
+
+<section id="main-content">
+  <section class="wrapper">
+
+    <div class="row mt content-panel" style="margin:15px;padding:15px">
+      <div id="edit" class="tab-pane">
+
+
+
+        <h2  style="margin-top: 10px;"><strong>영화상세정보</strong></h2>
+        <hr>
+
+        <div class="moviedetail">
+
+          <div class="mv_img" style="display:inline-block">
+            <img src="<%= rows.poster%>" style= "height:400px; width:auto; margin-right:30px;" >
+          </div>
+
+          <div class="mv_info" style=" display:inline-block">
+            <h2 style="margin-bottom: 20px;"><%=rows.title%></h2>
+            <div class="mv" style="font-size: 20px">
+
+              <div> [평점]  <%= rows.voteavg%></div>
+              <div> [평가인원]  <%= rows.votecount%></div>
+              <div> [장르]  <%= rows.genre%> </div>
+              <div> [감독]  <%= rows.name%> </div>
+              <div> [배우]
+
+              <%
+              if( actors.length>0 ){
+                var len=actors.length;
+                if(len>5)
+                    len=4;
+               for(var i=0 ; i< len; i++){
+                  var actor=actors[i].name;
+               %>
+                  <span style="margin-right:9px"><%= actor%></span>
+              <%
+                }
+              }else {
+                var actor="미입력";
+              %>
+              <span><%= actor %></span>
+              <%
+              }
+              %>
+
+              </div>
+              <div> [개봉일] <%= rows.releasedate%> </div>
+            </div>
+          </div>
+
+          <hr>
+          <div class="moviedes" style="font-size: 20px">
+            <p>[줄거리] </p>
+            <%= rows.description%>
+          </div>
+          <hr>
+          <a class="btn btn-danger bannermovie btn-xm" id="remove-all">Banner 등록</a>
+          <a class="btn btn-danger bannerrel btn-xm" id="remove-all">개봉영화 등록</a>
+
+          <%
+          if( typeof page!=="undefined" ){
+          %>
+          <a class="btn btn-danger btn-xm" id="remove-all" href="/admin/movie/<%=page%>">목록으로</a>
+          <%
+          }else {
+          %>
+          <a class="btn btn-danger btn-xm" id="remove-all" href="/admin/movie/1">목록으로</a>
+          <%
+          }
+          %>
+
+          <form id="Form" method="post">
+               <input type="hidden" name="movieid" id="movieid" value="<%=rows.movieid %>">
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<script>
+$(document).ready(function(){
+
+
+  var uploadFile = $('.fileBox .uploadBtn');
+  uploadFile.on('change', function(){
+  	if(window.FileReader){
+  		var filename = $(this)[0].files[0].name;
+  	} else {
+  		var filename = $(this).val().split('/').pop().split('\\').pop();
+  	}
+  	$(this).siblings('.fileName').val(filename);
+  });
+
+
+var Formobj= $("#Form");
+
+//var Formbanner=$("#FileUpload");
+
+$("#modalRegisterBtn").on("click", function(){
+  var movieid = $("#movieid").val();
+  var form = $('#FileUpload')[0];
+  var formData = new FormData(form);
+  $.ajax({
+        type : 'post',
+        url : '/admin/bannermovie',
+        processData : false,
+        contentType : false,
+        dataType : 'json', //여기다 제이슨으로 하면 제이슨 형태로오고, xml로 하면 xml형태로 온다.
+        data : formData,
+        success : function(result) {
+            swal(result["success"],"등록 현황으로 이동","success").then(
+            ()=>{
+
+              self.location ="/admin/bannermovie";
+            });
+        },
+        error : function(data) {   // 오류가 발생했을 때 호출된다.
+
+              var errorcontent=JSON.parse(data["responseText"]);
+              if(errorcontent.code==1){
+                swal("등록 에러", errorcontent.error);
+              }
+        }
+    });
+
+});
+
+  $("#modalCloseBtn").on("click", function(){
+    $("#banner").modal('hide');
+  });
+
+
+  $(".bannermovie").on("click", function(){
+    $("#banner").modal('show');
+    var movieid = $("#movieid").val();
+  });
+
+  $(".bannerrel").on("click", function(){
+
+    $.ajax({
+               type: 'GET',
+               url: '/theator/getinfo',
+               data: "json",
+               async: false, // 동기 방식으로 불러와야 한다.
+               success: function(data) {
+                    if(data != null) {
+
+                        var str="";
+                        for(var i=0; i <data.length; i++){
+
+                          if(i)
+                            str+='<span> [' +data[i].location +'] <input type="checkbox" name="location" value="'+data[i].location+'"> </span>';
+                          else
+                            str+='<span> [' +data[i].location +'] <input type="checkbox" name="location" value="'+data[i].location+'"> </span>';
+
+                        }
+                          $(".releasetheator").html(str);
+                    }
+               }
+      });
+
+
+    $("#releasemovie").modal('show');
+  });
+
+
+  $("#modalRegisterBtn_release").on("click", function(){
+
+    // 체크 박스 선택된 것을
+    var array=[];
+    var count=0;
+    var closedate = $("#closedate").val();
+    var movieid = $("#movieid").val();
+
+    $("input[name=location]:checked").each(function() {
+       var test = $(this).val();
+       // alert(test);
+       var json = {location:test}
+       array.push(json);
+       count++;
+     });
+     
+       //alert(JSON.stringify(array));
+
+     if(count==0)
+      alert("선택해줘요.");
+     else{
+       $.ajax({
+                  type: 'POST',
+                  url: '/theator/registermovie',
+                  headers : { //헤더가 꼭 있어야 한다.....
+                    "Content-Type":"application/json",
+                    "X-HTTP-Method-Override" : "POST"
+                  },
+                  dataType:'json',
+                  data: JSON.stringify({
+                    locations: JSON.stringify(array),
+                    closedate: closedate,
+                    movieid: movieid
+                  }),
+                  success: function(result) {
+                    swal(result["success"],"등록 현황으로 이동","success").then(
+                    ()=>{
+                      self.location ="/admin/bannerrelease";
+                    });
+                  },
+                  error : function(data) {   // 오류가 발생했을 때 호출된다.
+
+                        var errorcontent=JSON.parse(data["responseText"]);
+                        if(errorcontent.code==1){
+                          swal("등록 에러", errorcontent.error);
+                        }
+                  }
+         });
+     }
+  });
+
+
+
+  $("#modalCloseBtn_release").on("click", function(){
+    $("#releasemovie").modal('hide');
+  });
+
+
+
+
+
+
+});
+</script>
+<script>
+$(".flatpickr").flatpickr({
+});
+
+$("#home").removeClass( "active" );
+
+$("#movieset").addClass( "active" );
+
+</script>
+<% include ../admininclude/footer.ejs %>

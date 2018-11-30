@@ -1,0 +1,179 @@
+<% include ../maininclude/header.ejs %>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<style>
+
+.flatpickr-input[readonly] {
+    cursor: pointer;
+}
+
+</style>
+<section id="content">
+    <div class="container">
+      <div class="login_wrapper">
+        <div class="row text-center">
+   	    <div class="col-md-6 col-md-offset-3">
+   	        <div class="card" style="border:1px solid #868e96; padding:5rem; border-radius:1px ;box-shadow: 3px 3px 3px 3px #aaaaaa; ">
+   	            <div class="card-body">
+   	                <div class="login-img">
+   	                    <img src="/img/logo3.png">
+   	                </div>
+                     <br>
+   	                <div class="login-title">
+   	                    <h2 style="margin-bottom:20px">추가 정보입력</h2>
+   	                </div>
+   	                <div class="login-form mt-4">
+   	                  <form id=registerform name="registerform" >
+                           <div class="form-row">
+
+                              <div class="form-group col-md-12" style="padding:0">
+                                 <input id="email" name="email"  class="form-control" type="text" placeholder="<%=user.userid%>" readonly>
+                               </div>
+
+                               <div class="form-group col-md-12" style="padding:0">
+                                 <input type="text" name="nickname" class="form-control" id="nickname" value="<%=user.nickname%>" readonly>
+                               </div>
+
+                               <div class="form-group col-md-12" style="padding:0">
+                                 <input type="text" name="name" class="form-control" id="name"  placeholder="<%=user.name%>" readonly>
+                               </div>
+
+                               <input type="radio" id="contactChoice1"
+                                name="gender" value="male" checked="checked">
+                                <label class="form-check-label" for="updatecheck1">
+                                   남 <a href="#"></a>
+                                </label>
+
+                                <input type="radio" id="contactChoice2"
+                                name="gender" value="female">
+                                <label class="form-check-label" for="updatecheck1">
+                                   여 <a href="#"></a>
+                                </label>
+
+                                <div class="form-group col-md-12" style="padding:0">
+                                  <input class="flatpickr flatpickr-input form-control" type="text" name="birth" id="birth" placeholder="Select Birth Date Click here" data-id="inline" readonly="readonly">
+                                </div>
+
+                                <div class="form-group col-md-12" style="padding:0">
+                                  <input class="form-control" type="text" name="cellPhone" id="cellPhone" name="cellPhone" placeholder="Phone Number" maxlength="13" />
+                              </div>
+
+                              <div class="form-group col-md-12" style="padding:0">
+                                <input type="text" name="address" class="form-control" id="address"  placeholder="Address">
+                              </div>
+
+                           </div>
+
+                           <div class="form-row" style="margin-bottom:10px">
+                               <button type="submit" class="btn btn-danger btn-block">작성완료</button>
+                           </div>
+
+                       </form>
+   	           </div>
+   	        </div>
+   	    </div>
+      </div>
+    </div>
+</section>
+</div>
+<script>
+
+  function autoHypenPhone(str){
+        str = str.replace(/[^0-9]/g, '');
+        var tmp = '';
+        if( str.length < 4){
+            return str;
+        }else if(str.length < 7){
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3);
+            return tmp;
+        }else if(str.length < 11){
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3, 3);
+            tmp += '-';
+            tmp += str.substr(6);
+            return tmp;
+        }else{
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3, 4);
+            tmp += '-';
+            tmp += str.substr(7);
+            return tmp;
+        }
+        return str;
+    }
+
+  var cellPhone = document.getElementById('cellPhone');
+  cellPhone.onkeyup = function(event){
+          event = event || window.event;
+          var _val = this.value.trim();
+          this.value = autoHypenPhone(_val) ;
+  }
+
+  $(".flatpickr").flatpickr({
+  });
+
+  $(function(){
+  $("#registerform").validate({
+    rules: {
+         cellPhone:{
+           required :true
+         },
+         address:{
+           required:true
+         }
+        },
+        messages : {
+         cellPhone: {
+           required : "필수로 입력하세요"
+         },
+         address: {
+           required : "필수로 입력하세요"
+         }
+      },
+      submitHandler :function(){
+            var birth = $("#birth").val();
+            var cellPhone = $("#cellPhone").val();
+            var gender = $("input:radio[name=gender]:checked").val();
+            var address = $("#address").val();
+            $.ajax({
+                  type : 'post',
+                  url : '/auth/addinfo',
+                  headers : {
+                    "Content-Type":"application/json",
+                    "X-HTTP-Method-Override" : "POST"
+                  },
+                  dataType : 'json', //여기다 제이슨으로 하면 제이슨 형태로오고, xml로 하면 xml형태로 온다.
+                  data : JSON.stringify({
+                    birth : birth,
+                    cellPhone : cellPhone,
+                    gender : gender,
+                    address : address
+                  }),
+                  success : function(result) {
+                      swal(result["success"],"홈으로 이동합니다.","success").then(
+                      ()=>{
+                        self.location ="/";
+                      });
+                  },
+                  error : function(data) {   // 오류가 발생했을 때 호출된다.
+                        //var d=JSON.parse(data);
+                        //var responseText=data["responseText"];
+                        var errorcontent=JSON.parse(data["responseText"]);
+                        if(errorcontent.code==1){
+                            swal("회원가입 에러", errorcontent.error);
+                        }
+                  }
+              });
+            }
+        });
+    });
+</script>
+<% include ../maininclude/footer.ejs %>
